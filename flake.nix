@@ -24,9 +24,7 @@
       {
         flake = {
           lib.transform = import ./nix/lib/transform.nix { inherit lib; };
-          nixosModules = {
-            default = args: { imports = [ (importApply ./nix/modules/kubetree mkFlakeArgs) ]; };
-          };
+          nixosModules.default = importApply ./nix/modules/kubetree mkFlakeArgs;
         };
       }
     );
