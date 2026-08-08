@@ -6,11 +6,7 @@ let
 in
 {
   options.kubetree.kubernetes = {
-    enable = lib.mkOption {
-      description = "Whether to enable Kubernetes primitives transformers";
-      type = lib.types.bool;
-      default = true;
-    };
+    enable = lib.mkEnableOption "Kubernetes primitives transformers";
   };
   config = lib.mkIf cfg.enable {
     kubetree.transformers = {
