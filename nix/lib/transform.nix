@@ -2,6 +2,23 @@
 with builtins;
 rec {
 
+  mkDotPath =
+    resource: path: default:
+    if path == "." then resource else lib.attrByPath (lib.splitString "." path) default resource;
+
+  buildMetadata =
+    resource:
+    let
+      dotPath = mkDotPath resource;
+      name = dotPath "metadata.name" (throw "You must specify metadata.name");
+      namespace = dotPath "metadata.namespace" name;
+    in
+    {
+      inherit namespace;
+      labels."app.kubernetes.io/name" = name;
+    }
+    // dotPath "metadata" (throw "You must specify metadata");
+
   updatePath =
     resource: path: update:
     lib.recursiveUpdate resource (if length path > 0 then lib.setAttrByPath path update else update);
