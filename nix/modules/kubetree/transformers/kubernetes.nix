@@ -67,7 +67,7 @@ in
       };
       batch = {
         Job.spec.template = config.kubetree.transformers.v1.Pod;
-        CronJob.spec.jobTemplate.spec.template = config.kubetree.transformers.v1.Pod;
+        CronJob.spec.jobTemplate = config.kubetree.transformers.batch.Job;
       };
     };
   };
