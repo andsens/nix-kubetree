@@ -50,11 +50,11 @@ rec {
                 newList = newList ++ [
                   (lib.recursiveUpdate item update)
                 ];
-                attrsLeft = removeAttrs [ key ] attrsLeft;
+                attrsLeft = removeAttrs attrsLeft [ key ];
               }
             else
               {
-                newList = newList;
+                newList = newList ++ [ item ];
                 attrsLeft = attrsLeft;
               }
           )
