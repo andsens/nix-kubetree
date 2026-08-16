@@ -5,6 +5,8 @@ let
   transform = self.lib.transform;
 in
 {
+  # https://github.com/hercules-ci/flake-parts/pull/251
+  key = "${toString __curPos.file}#modules.nixos.kubetree-kubernetes";
   options.kubetree.kubernetes = {
     enable = lib.mkEnableOption "Kubernetes primitives transformers";
   };

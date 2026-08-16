@@ -11,6 +11,8 @@ let
   transform = self.lib.transform;
 in
 {
+  # https://github.com/hercules-ci/flake-parts/pull/251
+  key = "${toString __curPos.file}#modules.nixos.kubetree-k3s";
   options.kubetree.k3s = {
     enable = lib.mkEnableOption "applying kubetree.manifests to services.k3s.manifests";
     # run `nix build '.#nixosConfigurations."<HOSTNAME>".config.kubetree.k3s.payload'` to output the payload

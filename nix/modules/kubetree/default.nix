@@ -4,6 +4,8 @@ let
   cfg = config.kubetree;
 in
 {
+  # https://github.com/hercules-ci/flake-parts/pull/251
+  key = "${toString __curPos.file}#modules.nixos.kubetree";
   options.kubetree = with builtins; {
     resources = lib.mkOption {
       description = "A nested attrset mapping of manifest name -> item name -> resource";
