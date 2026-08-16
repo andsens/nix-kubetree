@@ -7,11 +7,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1786877658,
-        "narHash": "sha256-lGj3OI3CUBJRbyu/DH2Wky2fgbdZcLlQtAurVRym90s=",
+        "lastModified": 1786899524,
+        "narHash": "sha256-BeIdacPpbmv0SmjlyKAObFv2RnvqQRjAymUrkEUEXWw=",
         "owner": "andsens",
         "repo": "nix-docs",
-        "rev": "d1260123cb50907125aae8c263db2857ec45217f",
+        "rev": "27d76d2852ca002d9faf7075d49c72f2c6752aef",
         "type": "github"
       },
       "original": {

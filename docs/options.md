@@ -100,7 +100,7 @@ attribute set *(read only)*
 *Default:*
 
 ```nix
-{ }
+""
 ```
 
 *Declared by:*
