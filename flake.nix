@@ -40,7 +40,9 @@
               inherit pkgs;
               repoPath = toString self;
               repoLinkPrefix = "https://github.com/andsens/nix-kubetree/blob/main";
-              options = (lib.evalModules { modules = lib.attrValues self.nixosModules; }).options.kubetree;
+              options =
+                (lib.evalModules { modules = lib.attrValues self.nixosModules ++ [ { _module.check = false; } ]; })
+                .options.kubetree;
             };
           in
           {

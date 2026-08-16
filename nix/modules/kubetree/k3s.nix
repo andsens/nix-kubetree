@@ -37,7 +37,6 @@ in
     };
   };
   config = {
-    _module.check = false;
     services.k3s.manifests = lib.mkIf cfg.k3s.enable (
       mapAttrs (manifestName: items: {
         content =
