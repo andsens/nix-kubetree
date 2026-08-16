@@ -5,7 +5,7 @@ Pluggable module for performing tree transformations on Nix kubernetes manifests
 Comes with a built-in kubernetes primitives module that provides various
 properties on normal pod specifications, which eases both the writing and
 improves the readability of manifests.  
-See the [docs](nix/modules/kubetree/transformers/kubernetes.md) for more.
+See the [docs](docs/transformers/kubernetes.md) for more.
 
 ## Configuring resources
 
@@ -53,3 +53,8 @@ transformation to all items in a list.
 `cfg` is `config.kubetree`, meaning you can enhance the configuration tree with
 your own namespaced settings and have them available when your transformer is
 evaluated.
+
+### Library functions
+
+kubetree includes useful library functions accessible through `inputs.kubetree.lib.transform`.
+The documentation for which can be found [in the docs](docs/lib/transform.md).

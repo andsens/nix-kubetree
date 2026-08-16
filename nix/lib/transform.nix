@@ -2,6 +2,9 @@
 with builtins;
 rec {
 
+  /**
+    Documentation not yet created
+  */
   updatePath =
     resource: path: update:
     lib.recursiveUpdate resource (if length path > 0 then lib.setAttrByPath path update else update);
