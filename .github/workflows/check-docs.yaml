@@ -1,0 +1,22 @@
+name: Check if the documentation is up-to-date
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  build-docs:
+    name: Check if the documentation is up-to-date
+    runs-on: ubuntu-latest
+    steps:
+    - uses: cachix/install-nix-action@v31
+    - uses: actions/checkout@v7
+    - name: Generate and check the documentation
+      run: |
+        nix run '.#update-docs'
+        if ! git diff -q; then
+          printf "The documentation is outdated.\nRefresh it by running \`nix run '.#update-docs'\n" >&2
+          exit 1
+        fi
