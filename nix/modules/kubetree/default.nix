@@ -29,6 +29,7 @@ in
           )
         ) items
       ) config.kubetree.resources;
+      defaultText = "";
     };
   };
   imports = [
