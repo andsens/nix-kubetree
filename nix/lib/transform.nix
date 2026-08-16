@@ -153,15 +153,11 @@ rec {
     resource:
     let
       group = head (split "/" (lib.attrByPath [ "apiVersion" ] "" resource));
-      identity = (cfg: resource: resource);
     in
     if hasAttr "kind" resource then
       cfg: resource:
       addErrorContext "while transforming ${group}/${resource.kind}" (
-        applyPaths (lib.attrByPath [
-          group
-          resource.kind
-        ] { "." = [ identity ]; } cfg.transformers) cfg resource
+        applyPaths (lib.attrByPath [ group resource.kind ] { } cfg.transformers) cfg resource
       )
     else
       cfg: resource: throw "Resource has no Kind specified: ${toJSON resource}";
