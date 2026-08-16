@@ -72,28 +72,20 @@ rec {
       keyedListPath,
       keyPath,
       mergeWithPath,
-      nonAttrKeyPath ? null,
+      nonAttrKeyPath ? [ ],
     }:
     cfg: resource:
     let
-      _keyedListPath = lib.splitString "." keyedListPath;
-      _keyPath = lib.splitString "." keyPath;
-      _mergeWithPath = lib.splitString "." mergeWithPath;
-      keyedList = lib.attrByPath _keyedListPath { } resource;
-      unkeyedList = (lib.attrByPath _mergeWithPath [ ] resource);
-      normalizedUpdates =
-        if nonAttrKeyPath != null then
-          mapAttrs (
-            name: value:
-            if isAttrs value then value else lib.setAttrByPath (lib.splitString "." nonAttrKeyPath) value
-          ) keyedList
-        else
-          keyedList;
-      transformedList = mergeAttrsIntoList _keyPath unkeyedList normalizedUpdates;
-      cleanedResource = removeAttrByPath _keyedListPath resource;
+      keyedList = lib.attrByPath keyedListPath { } resource;
+      unkeyedList = (lib.attrByPath mergeWithPath [ ] resource);
+      normalizedUpdates = mapAttrs (
+        name: value: if isAttrs value then value else lib.setAttrByPath nonAttrKeyPath value
+      ) keyedList;
+      transformedList = mergeAttrsIntoList keyPath unkeyedList normalizedUpdates;
+      cleanedResource = removeAttrByPath keyedListPath resource;
     in
     if length transformedList > 0 then
-      replacePath cleanedResource _mergeWithPath transformedList
+      replacePath cleanedResource mergeWithPath transformedList
     else
       cleanedResource;
 

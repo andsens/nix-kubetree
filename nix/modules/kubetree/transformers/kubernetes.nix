@@ -14,49 +14,49 @@ in
         Pod.spec = rec {
           _transformers = [
             (transform.transformKeyedList {
-              keyedListPath = "initContainersByName";
-              keyPath = "name";
-              mergeWithPath = "initContainers";
+              keyedListPath = [ "initContainersByName" ];
+              keyPath = [ "name" ];
+              mergeWithPath = [ "initContainers" ];
             })
             (transform.transformKeyedList {
-              keyedListPath = "containersByName";
-              keyPath = "name";
-              mergeWithPath = "containers";
+              keyedListPath = [ "containersByName" ];
+              keyPath = [ "name" ];
+              mergeWithPath = [ "containers" ];
             })
             (transform.transformKeyedList {
-              keyedListPath = "volumesByName";
-              keyPath = "name";
-              mergeWithPath = "volumes";
+              keyedListPath = [ "volumesByName" ];
+              keyPath = [ "name" ];
+              mergeWithPath = [ "volumes" ];
             })
           ];
           containers."[]"._transformers = [
             (transform.transformKeyedList {
-              keyedListPath = "envByName";
-              keyPath = "name";
-              mergeWithPath = "env";
-              nonAttrKeyPath = "value";
+              keyedListPath = [ "envByName" ];
+              keyPath = [ "name" ];
+              mergeWithPath = [ "env" ];
+              nonAttrKeyPath = [ "value" ];
             })
             (transform.transformKeyedList {
-              keyedListPath = "portsByName";
-              keyPath = "name";
-              mergeWithPath = "ports";
-              nonAttrKeyPath = "containerPort";
+              keyedListPath = [ "portsByName" ];
+              keyPath = [ "name" ];
+              mergeWithPath = [ "ports" ];
+              nonAttrKeyPath = [ "containerPort" ];
             })
             (transform.transformKeyedList {
-              keyedListPath = "volumeMountsByPath";
-              keyPath = "mountPath";
-              mergeWithPath = "volumeMounts";
-              nonAttrKeyPath = "name";
+              keyedListPath = [ "volumeMountsByPath" ];
+              keyPath = [ "mountPath" ];
+              mergeWithPath = [ "volumeMounts" ];
+              nonAttrKeyPath = [ "name" ];
             })
           ];
           initContainers."[]" = containers."[]";
         };
         Service.spec._transformers = [
           (transform.transformKeyedList {
-            keyedListPath = "portsByName";
-            keyPath = "name";
-            mergeWithPath = "ports";
-            nonAttrKeyPath = "port";
+            keyedListPath = [ "portsByName" ];
+            keyPath = [ "name" ];
+            mergeWithPath = [ "ports" ];
+            nonAttrKeyPath = [ "port" ];
           })
         ];
         List.items."[]"._transformers = [ transform.transformResource ];
