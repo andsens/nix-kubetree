@@ -44,14 +44,14 @@
             };
           in
           {
-            apps.update-docs.program = inputs.docs.lib.docs.updateRepo {
+            apps.update-docs.program = inputs.docs.lib.utils.updateRepo {
               inherit pkgs;
               paths."docs/lib" = "${lib-docs}/lib";
-              paths."docs/options.md" = options-docs.optionsCommonMark;
+              paths."docs/options.md" = options-docs;
             };
             packages = {
               lib-docs = lib-docs;
-              options-docs = options-docs.optionsCommonMark;
+              options-docs = options-docs;
             };
           };
       }
