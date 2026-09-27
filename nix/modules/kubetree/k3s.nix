@@ -16,8 +16,8 @@ in
   options.kubetree.k3s = {
     enable = lib.mkEnableOption "applying kubetree.manifests to services.k3s.manifests";
     # run `nix build '.#nixosConfigurations."<HOSTNAME>".config.kubetree.k3s.payload'` to output the payload
-    payload = lib.mkOption {
-      description = "A derivation containing all manifests and images that will be sent to k3s";
+    payload.manifests = lib.mkOption {
+      description = "A derivation containing all manifests that will be sent to k3s";
       type = lib.types.package;
       readOnly = true;
       default = pkgs.stdenvNoCC.mkDerivation {
@@ -27,10 +27,42 @@ in
           runHook preInstall
           mkdir "$out"
           ${lib.join "" (
-            lib.mapAttrsToList (path: value: ''
-              mkdir -p "$out/${baseNameOf (dirOf path)}"
-              ln -s "${value."L+".argument}" "$out/${baseNameOf (dirOf path)}/${baseNameOf path}"
-            '') config.systemd.tmpfiles.settings."10-k3s"
+            lib.mapAttrsToList
+              (path: value: ''
+                ln -s "${value."L+".argument}" "$out/${baseNameOf path}"
+              '')
+              (
+                lib.filterAttrs (
+                  path: value: baseNameOf (dirOf path) == "manifests"
+                ) config.systemd.tmpfiles.settings."10-k3s"
+              )
+          )}
+          runHook postInstall
+        '';
+      };
+      defaultText = "";
+    };
+    payload.images = lib.mkOption {
+      description = "A derivation containing all images that will be sent to k3s";
+      type = lib.types.package;
+      readOnly = true;
+      default = pkgs.stdenvNoCC.mkDerivation {
+        name = "k3s-payload";
+        dontUnpack = true;
+        installPhase = ''
+          runHook preInstall
+          mkdir "$out"
+          ${lib.join "" (
+            lib.mapAttrsToList
+              (path: value: ''
+                mkdir -p "$out/${baseNameOf (dirOf path)}"
+                ln -s "${value."L+".argument}" "$out/${baseNameOf path}"
+              '')
+              (
+                lib.filterAttrs (
+                  path: value: baseNameOf (dirOf path) == "images"
+                ) config.systemd.tmpfiles.settings."10-k3s"
+              )
           )}
           runHook postInstall
         '';
