@@ -1,9 +1,15 @@
 {
   description = "Nix Kubetree";
   inputs = {
+    systems.url = "github:nix-systems/default";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    docs.url = "github:andsens/nix-docs";
+    docs = {
+      url = "github:andsens/nix-docs";
+      inputs.systems.follows = "systems";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
   outputs =
     {
