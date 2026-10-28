@@ -28,11 +28,35 @@ true
 
 
 
-## kubetree\.k3s\.payload
+## kubetree\.k3s\.payload\.images
 
 
 
-A derivation containing all manifests and images that will be sent to k3s
+A derivation containing all images that will be sent to k3s
+
+
+
+*Type:*
+package *(read only)*
+
+
+
+*Default:*
+
+```nix
+""
+```
+
+*Declared by:*
+ - [nix/modules/kubetree/default\.nix](https://github.com/andsens/nix-kubetree/blob/main/nix/modules/kubetree/default.nix)
+
+
+
+## kubetree\.k3s\.payload\.manifests
+
+
+
+A derivation containing all manifests that will be sent to k3s
 
 
 
