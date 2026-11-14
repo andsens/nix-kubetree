@@ -1,5 +1,13 @@
 # nix-kubetree
 
+> [!IMPORTANT]
+> This project is archived and no longer maintained. Use
+> [kubenix](https://github.com/hall/kubenix) instead: typed Kubernetes
+> resources for Nix, where a misspelled field fails at evaluation, and
+> submodules in place of the macros a transformer would add. The NixOS
+> module of k3s (`services.k3s.manifests`) takes plain objects for
+> anything that needs no types.
+
 Pluggable module for performing tree transformations on Nix kubernetes manifests.
 
 Comes with a built-in kubernetes primitives module that provides various
